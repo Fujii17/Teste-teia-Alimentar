@@ -7,18 +7,24 @@ pygame.init()
 # Configurações da tela e cores
 largura, altura = 600, 400
 tela = pygame.display.set_mode((largura, altura))
-pygame.display.set_caption('Jogo da Cobrinha')
+pygame.display.set_caption('Jogo da Cobrinha - Teia Alimentar')
 branco = (255, 255, 255)
 verde = (0, 255, 0)
 vermelho = (255, 0, 0)
+azul = (0, 0, 255)
+marrom = (139, 69, 19)
 
 # Configurações do jogo
 tamanho_bloco = 20
 velocidade = 15
 relogio = pygame.time.Clock()
 
-# Função para gerar a posição aleatória da maçã
-def posicao_maca():
+# Lista de alimentos que a cobra come
+alimentos = ['sapo', 'inseto', 'pequeno_roedor']
+cores_alimentos = {'sapo': azul, 'inseto': vermelho, 'pequeno_roedor': marrom}
+
+# Função para gerar a posição aleatória de um alimento
+def posicao_alimento():
     return (random.randint(0, (largura - tamanho_bloco) // tamanho_bloco) * tamanho_bloco,
             random.randint(0, (altura - tamanho_bloco) // tamanho_bloco) * tamanho_bloco)
 
@@ -27,7 +33,9 @@ def jogo():
     fim_jogo = False
     cobra_pos = [[300, 200]]
     direcao = 'PARADO'
-    maca_pos = posicao_maca()
+    alimento_pos = posicao_alimento()
+    tipo_alimento = random.choice(alimentos)
+
     while not fim_jogo:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -56,9 +64,10 @@ def jogo():
 
         cobra_pos.insert(0, nova_cabeca)
 
-        # Verifica se a maçã foi comida
-        if cobra_pos[0] == list(maca_pos):
-            maca_pos = posicao_maca()
+        # Verifica se o alimento foi comido
+        if cobra_pos[0] == list(alimento_pos):
+            alimento_pos = posicao_alimento()
+            tipo_alimento = random.choice(alimentos)
         else:
             cobra_pos.pop()
 
@@ -70,7 +79,7 @@ def jogo():
 
         # Atualiza a tela
         tela.fill(branco)
-        pygame.draw.rect(tela, vermelho, (*maca_pos, tamanho_bloco, tamanho_bloco))
+        pygame.draw.rect(tela, cores_alimentos[tipo_alimento], (*alimento_pos, tamanho_bloco, tamanho_bloco))
         for bloco in cobra_pos:
             pygame.draw.rect(tela, verde, (*bloco, tamanho_bloco, tamanho_bloco))
         pygame.display.update()
