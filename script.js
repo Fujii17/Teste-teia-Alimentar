@@ -17,7 +17,7 @@ let isGameOver = false;
 
 // Função para criar presas
 function createPrey() {
-  const preySize = Math.random() * 15 + 5; // Tamanho aleatório
+  const preySize = Math.random() * 22 + 5; // Tamanho aleatório
   return {
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
@@ -29,7 +29,7 @@ function createPrey() {
 
 // Função para criar predadores
 function createPredator() {
-  const predatorSize = Math.random() * 25 + 25; // Tamanho aleatório
+  const predatorSize = Math.random() * 35 + 12; // Tamanho aleatório
   return {
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
@@ -48,24 +48,19 @@ function drawCircle(entity) {
   ctx.closePath();
 }
 
-// Função para mover o jogador
+// Configurar movimento do jogador
 window.addEventListener('keydown', (e) => {
-  if (isGameOver) return;
-  switch (e.key) {
-    case 'ArrowUp':
-      player.y -= 10;
-      break;
-    case 'ArrowDown':
-      player.y += 10;
-      break;
-    case 'ArrowLeft':
-      player.x -= 10;
-      break;
-    case 'ArrowRight':
-      player.x += 10;
-      break;
+  if (e.key === 'ArrowUp' || e.key === 'w') {
+    player.y -= 10; // Mover para cima
+  } else if (e.key === 'ArrowDown' || e.key === 's') {
+    player.y += 10; // Mover para baixo
+  } else if (e.key === 'ArrowLeft' || e.key === 'a') {
+    player.x -= 10; // Mover para a esquerda
+  } else if (e.key === 'ArrowRight' || e.key === 'd') {
+    player.x += 10; // Mover para a direita
   }
 });
+
 
 // Detectar colisão
 function isColliding(entity1, entity2) {
