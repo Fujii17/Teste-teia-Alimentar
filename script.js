@@ -134,3 +134,29 @@ for (let i = 0; i < 3; i++) predators.push(createPredator());
 
 // Iniciar o jogo
 gameLoop();
+
+// Selecionar o botão
+const restartButton = document.getElementById('restartButton');
+
+// Função de Game Over
+function gameOver() {
+  alert('Game Over!');
+  restartButton.style.display = 'block'; // Exibe o botão de reinício
+}
+
+// Função para reiniciar o jogo
+function restartGame() {
+  player.x = 0; // Reinicia a posição do jogador
+  player.y = 0; // Reinicia a posição do jogador
+  score = 0;    // Zera a pontuação
+  restartButton.style.display = 'none'; // Esconde o botão
+  startGame();  // Reinicia a lógica do jogo
+}
+
+// Adiciona um evento de clique no botão de reinício
+restartButton.addEventListener('click', restartGame);
+
+// Função para iniciar o jogo
+function startGame() {
+  console.log("Jogo iniciado!"); // Substitua pela lógica de inicialização do jogo
+}
