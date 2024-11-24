@@ -17,7 +17,7 @@ let isGameOver = false;
 
 // Função para criar presas
 function createPrey() {
-  const preySize = Math.random() * 22 + 5; // Tamanho aleatório
+  const preySize = Math.random() * 11 + 5; // Tamanho aleatório
   return {
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
